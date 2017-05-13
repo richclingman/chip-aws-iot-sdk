@@ -1,3 +1,7 @@
+# Test Certificates
+certs
+config.json
+
 # Logs
 logs
 *.log

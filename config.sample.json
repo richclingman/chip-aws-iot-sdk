@@ -1,0 +1,9 @@
+{
+  "host":           "xxxxxxx.iot.us-east-1.amazonaws.com",
+  "port":           8883,
+  "clientId":       "MyChipProDev",
+  "thingName":      "MyChipProDev",
+  "caCert":         "VeriSign-Class3-Public-Primary-Certification-Authority-G5.pem",
+  "clientCert":     "abcdef-certificate.pem.crt",
+  "privateKey":     "abcdef-private.pem.key"
+}
