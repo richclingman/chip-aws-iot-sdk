@@ -2,14 +2,22 @@
   "name": "chip-aws-iot-sdk",
   "version": "0.1.0",
   "description": "",
-  "main": "index.js",
   "repository": "https://github.com/richclingman/chip-aws-iot-sdk.git",
+  "main": "app.js",
   "dependencies": {
-    "aws-iot-device-sdk": "^1.0.14"
+    "aws-iot-device-sdk": "^1.0.14",
+    "express": "^4.15.2",
+    "request": "^2.81.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.4.1",
+    "mockery": "^2.0.0",
+    "sinon": "^2.2.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "chip": "node ./shadowDevice.js -f certs -F config.json",
+    "test": "./node_modules/.bin/mocha --reporter spec",
     "devices": "node ./node_modules/aws-iot-device-sdk/examples/device-example.js -f ./certs --thing-name RichChipProDev -F ./config.json --debug=true --test-mode=1 & node ./node_modules/aws-iot-device-sdk/examples/device-example.js -f ./certs --thing-name RichChipProDev -F ./config.json --debug=true --test-mode=2 &",
     "device1": "node ./node_modules/aws-iot-device-sdk/examples/device-example.js -f ./certs --thing-name RichChipProDev -F ./config.json --debug=true --test-mode=1",
     "device2": "node ./node_modules/aws-iot-device-sdk/examples/device-example.js -f ./certs --thing-name RichChipProDev -F ./config.json --debug=true --test-mode=2",
