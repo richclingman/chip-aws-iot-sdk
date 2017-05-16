@@ -1,8 +1,9 @@
 {
-  "name": "device-sdk",
+  "name": "chip-aws-iot-sdk",
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
+  "repository": "https://github.com/richclingman/chip-aws-iot-sdk.git",
   "dependencies": {
     "aws-iot-device-sdk": "^1.0.14"
   },
