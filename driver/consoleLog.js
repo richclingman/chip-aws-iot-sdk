@@ -13,10 +13,23 @@
  * @type {{update: module.exports.update}}
  */
 
-module.exports = {
-    update: function(message) {
-        const json = JSON.stringify(message, null, 4);
+let value;
 
-        console.log(json);
+module.exports = {
+    init: function() {
+        value = {};
+        this.writeOutput('init() called');
+    },
+    update: function(message) {
+        value = message.state.desired;
+
+        const json = JSON.stringify(message, null, 4);
+        this.writeOutput(json);
+    },
+    get: function() {
+        return value;
+    },
+    writeOutput: function(arg) {
+        console.log(arg);
     }
 };

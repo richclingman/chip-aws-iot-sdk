@@ -1,0 +1,9 @@
+{
+  "firstAttribute": 11,
+  "secondAttribute": 22,
+  "attribute3": 33,
+  "attribute4": 44,
+  "attribute5": 55,
+  "attribute6": 66,
+  "attribute7": 77
+}
