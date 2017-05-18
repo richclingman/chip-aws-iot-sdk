@@ -10,6 +10,7 @@
     "request": "^2.81.0"
   },
   "devDependencies": {
+    "approvals": "^2.1.2",
     "chai": "^3.5.0",
     "mocha": "^3.4.1",
     "mockery": "^2.0.0",

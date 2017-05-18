@@ -1,7 +1,8 @@
 'use strict';
 
-const expect = require("chai").expect;
 const sinon = require('sinon');
+
+require('approvals').mocha();
 
 const consoleLog = require('../driver/consoleLog');
 
@@ -29,12 +30,10 @@ describe.only('consoleLog', function () {
             }
         };
 
-        const expected = JSON.stringify(message, null, 4);
         consoleLog.update(message);
 
         const result = console.log.args[0][0];
-
-        expect(result).to.equal(expected);
+        this.verify(result);
     });
 
 
