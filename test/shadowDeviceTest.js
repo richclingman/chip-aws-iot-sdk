@@ -4,6 +4,8 @@ const expect = require("chai").expect;
 const sinon = require('sinon');
 const mockery = require('mockery');
 
+require('approvals').mocha('./test/approvals');
+
 // const config = require('../config.json');
 
 describe('shadowDevice', function () {
@@ -20,10 +22,6 @@ describe('shadowDevice', function () {
         });
         awsMock = {
             thingShadow: sinon.spy(function () {
-
-                console.log('* * * called thingShadow');
-
-
                 return {
                     register: register
                 };
@@ -57,10 +55,14 @@ describe('shadowDevice', function () {
     });
 
 
-    it('should call thingShadow() and register', function () {
+    it('should call thingShadow and register', function () {
         shadowDevice(args);
-        expect(awsMock.thingShadow.callCount).to.equal(1);
-        expect(register.callCount).to.equal(1);
+
+        let result = {};
+        result.thingShadowCall = awsMock.thingShadow.args;
+        result.registerCall = register.args;
+
+        this.verifyAsJSON(result);
     });
 
 });

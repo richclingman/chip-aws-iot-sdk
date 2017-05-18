@@ -4,7 +4,7 @@ const sinon = require('sinon');
 
 require('approvals').mocha('./test/approvals');
 
-describe.only('consoleLog', function () {
+describe('consoleLog', function () {
     let consoleLogDriver;
 
     beforeEach(function () {

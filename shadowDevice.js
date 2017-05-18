@@ -1,14 +1,13 @@
 'use strict';
 
 const thingShadow = require('aws-iot-device-sdk').thingShadow;
+
 const cmdLineProcess = require('aws-iot-device-sdk/examples/lib/cmdline');
 const isUndefined = require('aws-iot-device-sdk/common/lib/is-undefined');
 
 
 function main(args) {
     console.log('main');
-
-    deviceConnect();
 
     const willPayload = {
         "state": {
@@ -40,6 +39,8 @@ function main(args) {
             retain: false
         }
     });
+
+    deviceConnect();
 
     //
     // Operation timeout in milliseconds

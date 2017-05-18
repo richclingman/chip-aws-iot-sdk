@@ -1,0 +1,40 @@
+{
+  "thingShadowCall": [
+    [
+      {
+        "keyPath": "privateKey",
+        "certPath": "clientCert",
+        "caPath": "caCert",
+        "clientId": "clientId",
+        "region": "region",
+        "baseReconnectTimeMs": "baseReconnectTimeMs",
+        "keepalive": "keepAlive",
+        "protocol": "Protocol",
+        "port": "Port",
+        "host": "Host",
+        "debug": false,
+        "will": {
+          "topic": "chip/things/testThing/update",
+          "payload": {
+            "state": {
+              "reported": {
+                "connected": "false"
+              }
+            }
+          },
+          "qos": 1,
+          "retain": false
+        }
+      }
+    ]
+  ],
+  "registerCall": [
+    [
+      "testThing",
+      {
+        "ignoreDeltas": true
+      },
+      null
+    ]
+  ]
+}
