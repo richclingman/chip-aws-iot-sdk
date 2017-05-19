@@ -24,10 +24,10 @@ const chipPinDev = {
         'D4': {type: 'IO', pin: 136},
         'D5': {type: 'IO', pin: 137},
         'D6': {type: 'IO', pin: 138},
-        'D7': {type: 'IO', pin: 139},
+        'D7': {type: 'IO', pin: 139}
 
-        'PWM0': {type: 'PWM', pin: 9},
-        'PWM1': {type: 'PWM', pin: 10}
+        // 'PWM0': {type: 'PWM', pin: 9},
+        // 'PWM1': {type: 'PWM', pin: 10}
     },
 
     getPinList: function() {

@@ -22,11 +22,5 @@
   ],
   [
     "139 > /sys/class/gpio/unexport"
-  ],
-  [
-    "9 > /sys/class/gpio/unexport"
-  ],
-  [
-    "10 > /sys/class/gpio/unexport"
   ]
 ]

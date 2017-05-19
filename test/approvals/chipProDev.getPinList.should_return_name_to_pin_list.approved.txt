@@ -30,13 +30,5 @@
   "D7": {
     "type": "IO",
     "pin": 139
-  },
-  "PWM0": {
-    "type": "PWM",
-    "pin": 9
-  },
-  "PWM1": {
-    "type": "PWM",
-    "pin": 10
   }
 }
