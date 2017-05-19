@@ -39,31 +39,36 @@ const chipPinDev = {
     },
 
     exportPin: function (pin) {
-        const cmd = 'echo ' + pin + ' > /sys/class/gpio/export';
-        chipPinDev.execute(cmd);
+        const cmd = pin + ' > /sys/class/gpio/export';
+        chipPinDev.executeSet(cmd);
     },
 
     unexportPin: function (pin) {
-        const cmd = 'echo ' + pin + ' > /sys/class/gpio/unexport';
-        chipPinDev.execute(cmd);
+        const cmd = pin + ' > /sys/class/gpio/unexport';
+        chipPinDev.executeSet(cmd);
     },
 
     setDirection: function (pin, direction) {
-        const cmd = 'echo ' + direction + ' > /sys/class/gpio/gpio' + pin + '/direction';
-        chipPinDev.execute(cmd);
+        const cmd = direction + ' > /sys/class/gpio/gpio' + pin + '/direction';
+        chipPinDev.executeSet(cmd);
     },
 
     setValue: function (pin, value) {
-        const cmd = 'echo ' + value + ' > /sys/class/gpio/gpio' + pin + '/value';
-        chipPinDev.execute(cmd);
+        const cmd = value + ' > /sys/class/gpio/gpio' + pin + '/value';
+        chipPinDev.executeSet(cmd);
     },
 
+    getValue: function (pin) {
+        const cmd = '/sys/class/gpio/gpio' + pin + '/value';
+        return chipPinDev.executeGet(cmd);
+    },
 
     init: function () {
         const leds = [132, 133, 134, 135, 136, 137, 138, 139];
         leds.map(function (led) {
             chipPinDev.exportPin(led);
             chipPinDev.setDirection(led, 'out');
+            chipPinDev.setValue(led, 0);
         });
     },
 
@@ -73,9 +78,26 @@ const chipPinDev = {
         }
     },
 
-    execute: function (cmd) {
-        console.log('in execute');
+    executeSet: function (cmd) {
+        cmd = 'echo ' + cmd;
+        console.log('in executeSet');
         console.log(cmd);
+    },
+
+    executeGet: function (cmd) {
+        cmd = 'cat ' + cmd;
+        console.log('in executeGet');
+        console.log(cmd);
+
+        return '* NEED TO GET VALUE *';
+    },
+
+    getState: function() {
+        let state = {};
+        Object.keys(chipPinDev.pinList).map(function(pinName) {
+            state[pinName] = chipPinDev.getValue(chipPinDev.pinList[pinName].pin);
+        });
+        return state;
     }
 
 };
