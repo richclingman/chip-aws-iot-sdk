@@ -6,6 +6,7 @@
   "main": "app.js",
   "dependencies": {
     "aws-iot-device-sdk": "^1.0.14",
+    "child": "0.0.3",
     "express": "^4.15.2",
     "request": "^2.81.0"
   },

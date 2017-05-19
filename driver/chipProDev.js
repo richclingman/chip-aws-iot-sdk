@@ -9,36 +9,47 @@
  *
  */
 
+const child = require('child');
+
 
 // *** SERIOUS SECURITY RISK ***
 // SHOULD NOT ALLOW BUILDING A SHELL COMMAND WITH UNTESTED VALUES
 
+const chipPinDev = {
+    exportPin: function (pin) {
+        const cmd = 'echo ' + pin + ' > /sys/class/gpio/export';
+        chipPinDev.execute(cmd);
+    },
 
-function exportPin(pin) {
+    unexportPin: function (pin) {
+        const cmd = 'echo ' + pin + ' > /sys/class/gpio/unexport'
+        chipPinDev.execute(cmd);
+    },
+
+    setDirection: function (pin, direction) {
+        const cmd = 'echo ' + direction + ' > /sys/class/gpio/gpio' + pin + '/direction';
+        chipPinDev.execute(cmd);
+    },
+
+    setValue: function (pin, value) {
+        const cmd = 'echo ' + value + ' > /sys/class/gpio/gpio' + pin + '/value';
+        chipPinDev.execute(cmd);
+    },
 
 
-    const cmd = "sudo sh -c 'echo " + pin + " > /sys/class/gpio/export";
-    console.log(cmd);
-}
-
-function unexportPin(pin) {
-    const cmd = 'echo 132 > /sys/class/gpio/unexport'
-}
-
-function setPinDirection(pin, direction) {
-    const cmd = 'echo ' + direction + ' > /sys/class/gpio/gpio' + pin + '/direction';
-}
-
-
-
-
-
-module.exports = {
-    init: function() {
+    init: function () {
         const leds = [132, 133, 134, 135, 136, 137, 138, 139];
-        leds.map(function(led) {
-            exportPin(led);
-            setPinDirection(led, 'out');
+        leds.map(function (led) {
+            chipPinDev.exportPin(led);
+            chipPinDev.setDirection(led, 'out');
         });
+    },
+
+    execute: function (cmd) {
+        console.log('in execute');
+        console.log(cmd);
     }
+
 };
+
+module.exports = chipPinDev;
