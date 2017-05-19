@@ -1,0 +1,42 @@
+{
+  "D0": {
+    "type": "IO",
+    "pin": 132
+  },
+  "D1": {
+    "type": "IO",
+    "pin": 133
+  },
+  "D2": {
+    "type": "IO",
+    "pin": 134
+  },
+  "D3": {
+    "type": "IO",
+    "pin": 135
+  },
+  "D4": {
+    "type": "IO",
+    "pin": 136
+  },
+  "D5": {
+    "type": "IO",
+    "pin": 137
+  },
+  "D6": {
+    "type": "IO",
+    "pin": 138
+  },
+  "D7": {
+    "type": "IO",
+    "pin": 139
+  },
+  "PWM0": {
+    "type": "PWM",
+    "pin": 9
+  },
+  "PWM1": {
+    "type": "PWM",
+    "pin": 10
+  }
+}

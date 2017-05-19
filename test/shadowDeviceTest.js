@@ -4,7 +4,15 @@ const expect = require("chai").expect;
 const sinon = require('sinon');
 const mockery = require('mockery');
 
-require('approvals').mocha('./test/approvals');
+const approvals = require('approvals').mocha('./test/approvals');
+
+const approvalsConfig = {
+    failOnLineEndingDifferences: false,
+    errorOnStaleApprovedFiles: false,
+    normalizeLineEndingsTo: '\r\n',
+    appendEOL: true
+};
+approvals.configure(approvalsConfig);
 
 // const config = require('../config.json');
 
@@ -28,7 +36,9 @@ describe('shadowDevice', function () {
             })
         };
 
-        mockery.enable();
+        mockery.enable({
+            warnOnUnregistered: false
+        });
         mockery.registerMock('aws-iot-device-sdk', awsMock);
         shadowDevice = require('../shadowDevice');
         

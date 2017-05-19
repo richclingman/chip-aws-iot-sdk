@@ -1,0 +1,32 @@
+[
+  [
+    "echo 132 > /sys/class/gpio/unexport"
+  ],
+  [
+    "echo 133 > /sys/class/gpio/unexport"
+  ],
+  [
+    "echo 134 > /sys/class/gpio/unexport"
+  ],
+  [
+    "echo 135 > /sys/class/gpio/unexport"
+  ],
+  [
+    "echo 136 > /sys/class/gpio/unexport"
+  ],
+  [
+    "echo 137 > /sys/class/gpio/unexport"
+  ],
+  [
+    "echo 138 > /sys/class/gpio/unexport"
+  ],
+  [
+    "echo 139 > /sys/class/gpio/unexport"
+  ],
+  [
+    "echo 9 > /sys/class/gpio/unexport"
+  ],
+  [
+    "echo 10 > /sys/class/gpio/unexport"
+  ]
+]

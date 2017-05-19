@@ -2,7 +2,15 @@
 
 const sinon = require('sinon');
 
-require('approvals').mocha('./test/approvals');
+const approvals = require('approvals').mocha('./test/approvals');
+
+const approvalsConfig = {
+    failOnLineEndingDifferences: false,
+    errorOnStaleApprovedFiles: false,
+    normalizeLineEndingsTo: '\r\n',
+    appendEOL: true
+};
+approvals.configure(approvalsConfig);
 
 describe('consoleLog', function () {
     let consoleLogDriver;
