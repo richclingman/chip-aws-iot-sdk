@@ -2,12 +2,12 @@
 
 const thingShadow = require('aws-iot-device-sdk').thingShadow;
 
-const cmdLineProcess = require('aws-iot-device-sdk/examples/lib/cmdline');
 const isUndefined = require('aws-iot-device-sdk/common/lib/is-undefined');
 
-
-function main(args) {
+let shadowDevice = function (args) {
     console.log('main');
+
+    this.args = args;
 
     const willPayload = {
         "state": {
@@ -17,7 +17,7 @@ function main(args) {
         }
     };
 
-    const thingShadows = thingShadow({
+    this.thingShadow = thingShadow({
         keyPath: args.privateKey,
         certPath: args.clientCert,
         caPath: args.caCert,
@@ -40,7 +40,7 @@ function main(args) {
         }
     });
 
-    deviceConnect();
+    this.deviceConnect();
 
     //
     // Operation timeout in milliseconds
@@ -49,43 +49,33 @@ function main(args) {
 
     // const thingName = 'RGBLedLamp';
 
-    // var currentTimeout = null;
+};
 
-
-    function deviceConnect() {
+shadowDevice.prototype = {
+    args: null,
+    thingShadow: null,
+    currentTimeout: null,
+    deviceConnect: function () {
         console.log('connect');
 
-        thingShadows.register(args.thingName, {
+        this.registerEventHandlers();
+
+        this.thingShadow.register(this.args.thingName, {
                 ignoreDeltas: true
             },
-            registeredCallback
+            this.registeredCallback
         );
-    }
+    },
 
-    function registeredCallback(err, failedTopics) {
+    registeredCallback: function (err, failedTopics) {
         if (isUndefined(err) && isUndefined(failedTopics)) {
             console.log('Device thing registered.');
-            setEventHandlers();
         }
+    },
+    registerEventHandlers: function () {
     }
 
-    function setEventHandlers() {
-
-
-    }
-
-
-}
-
-module.exports = main;
-
-if (require.main === module) {
-    cmdLineProcess(
-        'shadowDevice sample code',
-        process.argv.slice(2),
-        main
-    );
-}
-
+};
 
 console.log('end');
+module.exports = shadowDevice;

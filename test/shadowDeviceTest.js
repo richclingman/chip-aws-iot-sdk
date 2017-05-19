@@ -1,6 +1,5 @@
 'use strict';
 
-const expect = require("chai").expect;
 const sinon = require('sinon');
 const mockery = require('mockery');
 
@@ -18,7 +17,7 @@ approvals.configure(approvalsConfig);
 
 describe('shadowDevice', function () {
     let awsMock;
-    let shadowDevice;
+    let shadowDeviceClass;
     let register;
     let args;
 
@@ -40,7 +39,7 @@ describe('shadowDevice', function () {
             warnOnUnregistered: false
         });
         mockery.registerMock('aws-iot-device-sdk', awsMock);
-        shadowDevice = require('../shadowDevice');
+        shadowDeviceClass = require('../shadowDevice');
         
         args = {
             privateKey: 'privateKey',
@@ -66,7 +65,7 @@ describe('shadowDevice', function () {
 
 
     it('should call thingShadow and register', function () {
-        shadowDevice(args);
+        let shadowDevice = new shadowDeviceClass(args);
 
         let result = {};
         result.thingShadowCall = awsMock.thingShadow.args;
