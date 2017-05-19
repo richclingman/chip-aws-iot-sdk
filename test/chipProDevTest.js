@@ -10,10 +10,9 @@ const approvalsConfig = {
 };
 approvals.configure(approvalsConfig);
 
-
 const sinon = require('sinon');
 
-describe.only('chipProDev', function () {
+describe('chipProDev', function () {
     let chipProDev;
     let executeSet;
     let executeGet;
