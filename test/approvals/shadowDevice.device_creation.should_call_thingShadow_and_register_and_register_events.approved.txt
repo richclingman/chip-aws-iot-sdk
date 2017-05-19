@@ -36,5 +36,43 @@
       },
       null
     ]
+  ],
+  "registerEvents": [
+    [
+      "connect",
+      null
+    ],
+    [
+      "close",
+      null
+    ],
+    [
+      "reconnect",
+      null
+    ],
+    [
+      "offline",
+      null
+    ],
+    [
+      "error",
+      null
+    ],
+    [
+      "message",
+      null
+    ],
+    [
+      "status",
+      null
+    ],
+    [
+      "delta",
+      null
+    ],
+    [
+      "timeout",
+      null
+    ]
   ]
 }

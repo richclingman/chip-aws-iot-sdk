@@ -18,19 +18,22 @@ approvals.configure(approvalsConfig);
 describe('shadowDevice', function () {
     let awsMock;
     let shadowDeviceClass;
-    let register;
+    let registerMock;
+    let onMock;
     let args;
 
     beforeEach(function () {
 
-        register = sinon.spy(function (name, config, callback) {
+        registerMock = sinon.spy(function (name, config, callback) {
             console.log('called register');
             callback(null, null);
         });
+        onMock = sinon.stub();
         awsMock = {
             thingShadow: sinon.spy(function () {
                 return {
-                    register: register
+                    registerThing: registerMock,
+                    on: onMock
                 };
             })
         };
@@ -63,15 +66,17 @@ describe('shadowDevice', function () {
         mockery.disable()
     });
 
+    describe.only('device creation', function() {
+        it('should call thingShadow and register and register events', function () {
+            let shadowDevice = new shadowDeviceClass(args);
 
-    it('should call thingShadow and register', function () {
-        let shadowDevice = new shadowDeviceClass(args);
+            let result = {};
+            result.thingShadowCall = awsMock.thingShadow.args;
+            result.registerCall = registerMock.args;
+            result.registerEvents = onMock.args;
 
-        let result = {};
-        result.thingShadowCall = awsMock.thingShadow.args;
-        result.registerCall = register.args;
-
-        this.verifyAsJSON(result);
+            this.verifyAsJSON(result);
+        });
     });
 
 });

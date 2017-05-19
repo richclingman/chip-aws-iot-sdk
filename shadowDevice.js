@@ -60,7 +60,13 @@ shadowDevice.prototype = {
 
         this.registerEventHandlers();
 
-        this.thingShadow.register(this.args.thingName, {
+        this.registerThing();
+    },
+
+    registerThing: function() {
+        this.thingShadow.registerThing(
+            this.args.thingName,
+            {
                 ignoreDeltas: true
             },
             this.registeredCallback
@@ -73,6 +79,55 @@ shadowDevice.prototype = {
         }
     },
     registerEventHandlers: function () {
+        this.thingShadow.on('connect', function () {
+            console.log('connected to AWS IoT');
+        });
+
+        this.thingShadow.on('close', function () {
+            console.log('close');
+            this.thingShadow.unregister(thingName);
+        });
+
+        this.thingShadow.on('reconnect', function () {
+            console.log('reconnect');
+        });
+
+        this.thingShadow.on('offline', function () {
+            //
+            // If any timeout is currently pending, cancel it.
+            //
+            if (this.currentTimeout !== null) {
+                clearTimeout(this.currentTimeout);
+                this.currentTimeout = null;
+            }
+            //
+            // If any operation is currently underway, cancel it.
+            //
+            while (stack.length) {
+                stack.pop();
+            }
+            console.log('offline');
+        });
+
+        this.thingShadow.on('error', function (error) {
+            console.log('error', error);
+        });
+
+        this.thingShadow.on('message', function (topic, payload) {
+            console.log('message', topic, payload.toString());
+        });
+
+        this.thingShadow.on('status', function (thingName, stat, clientToken, stateObject) {
+            handleStatus(thingName, stat, clientToken, stateObject);
+        });
+
+        this.thingShadow.on('delta', function (thingName, stateObject) {
+            handleDelta(thingName, stateObject);
+        });
+
+        this.thingShadow.on('timeout', function (thingName, clientToken) {
+            handleTimeout(thingName, clientToken);
+        });
     }
 
 };
