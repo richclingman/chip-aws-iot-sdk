@@ -1,0 +1,30 @@
+[
+  [
+    {
+      "firstAttribute": 1,
+      "secondAttribute": 2
+    }
+  ],
+  [
+    {
+      "firstAttribute": 1,
+      "secondAttribute": 2,
+      "attribute3": 3,
+      "attribute4": 4,
+      "attribute5": 5,
+      "attribute6": 6,
+      "attribute7": 7
+    }
+  ],
+  [
+    {
+      "firstAttribute": 1,
+      "secondAttribute": 2,
+      "attribute3": 3,
+      "attribute4": null,
+      "attribute5": null,
+      "attribute6": 6,
+      "attribute7": 7
+    }
+  ]
+]

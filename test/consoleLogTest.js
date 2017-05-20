@@ -34,28 +34,48 @@ describe('consoleLog', function () {
         });
     });
 
-    describe('updateState', function () {
-        it('should write json to console', function () {
+    describe.only('updateState', function () {
+        it('should merge deltas and write json to console', function () {
 
-            const message = {
-                state: {
-                    reported: {
-                        firstAttribute: 1,
-                        secondAttribute: 2,
-                        attribute3: 3,
-                        attribute4: 4,
-                        attribute5: 5,
-                        attribute6: 6,
-                        attribute7: 7
-                    },
-                    desired: null
-                }
-            };
+            const messages = [
+                {
+                    state: {
+                        desired: {
+                            firstAttribute: 1,
+                            secondAttribute: 2
+                        },
+                        reported: null
+                    }
+                },
+                {
+                    state: {
+                        desired: {
+                            attribute3: 3,
+                            attribute4: 4,
+                            attribute5: 5,
+                            attribute6: 6,
+                            attribute7: 7
+                        },
+                        reported: null
+                    }
+                },
+                {
+                    state: {
+                        desired: {
+                            attribute4: null,
+                            attribute5: null
+                        },
+                        reported: null
+                    }
+                },
+            ];
 
-            consoleLogDriver.updateState(message);
+            messages.map(function (message) {
+                consoleLogDriver.updateState(message);
+            });
 
-            const result = consoleLogDriver.writeOutput.args[0][0];
-            this.verify(result);
+            const result = consoleLogDriver.writeOutput.args;
+            this.verifyAsJSON(result);
         });
 
     });

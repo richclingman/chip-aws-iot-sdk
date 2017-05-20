@@ -15,16 +15,17 @@ let consoleLogDriver = function() {
 
 };
 consoleLogDriver.prototype = {
-    value: null,
+    value: {},
     init: function() {
         this.value = {};
         this.writeOutput('init() called');
     },
     updateState: function(message) {
-        this.value = message.state.desired;
+        Object.assign(this.value, message.state.desired);
 
-        const json = JSON.stringify(message, null, 4);
-        this.writeOutput(json);
+        // clone object so test sees distinct values for each call
+        const reportedOutput = Object.assign({}, this.value);
+        this.writeOutput(reportedOutput);
     },
     get: function() {
         return this.value;
