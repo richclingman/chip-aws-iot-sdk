@@ -41,7 +41,7 @@ describe('shadowDevice', function () {
         });
         mockery.registerMock('aws-iot-device-sdk', awsMock);
         shadowDeviceClass = require('../shadowDevice');
-        
+
         args = {
             privateKey: 'privateKey',
             clientCert: 'clientCert',
@@ -64,9 +64,13 @@ describe('shadowDevice', function () {
         mockery.disable()
     });
 
-    describe('device creation', function() {
+    describe('device creation', function () {
         it('should call thingShadow and register and register events', function () {
-            let shadowDevice = new shadowDeviceClass(args);
+            const driver = {
+                init: function () {
+                }
+            };
+            const shadowDevice = new shadowDeviceClass(args, driver);
 
             let result = {};
             result.thingShadowCall = awsMock.thingShadow.args;

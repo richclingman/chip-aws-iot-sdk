@@ -11,26 +11,26 @@
  * this device change states and generate change messages.
  */
 
-let consoleLogDriver = function() {
+let consoleLogDriver = function () {
 
 };
 consoleLogDriver.prototype = {
     value: {},
-    init: function() {
+    init: function () {
         this.value = {};
         this.writeOutput('init() called');
     },
-    updateState: function(message) {
+    updateState: function (message) {
         Object.assign(this.value, message.state);
 
         // clone object so test sees distinct values for each call
         const reportedOutput = Object.assign({}, this.value);
         this.writeOutput(reportedOutput);
     },
-    get: function() {
+    get: function () {
         return this.value;
     },
-    writeOutput: function(arg) {
+    writeOutput: function (arg) {
         console.log('\nDRIVER OUT: ', arg);
     }
 };
