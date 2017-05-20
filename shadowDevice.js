@@ -10,6 +10,8 @@ let shadowDevice = function (args, driver) {
     this.args = args;
     this.driver = driver;
 
+    driver.init();
+
     const willPayload = {
         "state": {
             "reported": {

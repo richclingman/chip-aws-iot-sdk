@@ -9,7 +9,7 @@
  *
  */
 
-const child = require('child');
+const child = require('child_process');
 
 
 // *** SERIOUS SECURITY RISK ***
@@ -104,6 +104,8 @@ ChipPinDev.prototype = {
         cmd = 'echo ' + cmd;
         console.log('in executeSet');
         console.log(cmd);
+
+        child.execSync(cmd);
     },
 
     executeGet: function (cmd) {
@@ -111,6 +113,8 @@ ChipPinDev.prototype = {
         console.log('in executeGet');
         console.log(cmd);
 
+        const buffer = child.execSync(cmd);
+        console.log('buffer', buffer.toJSON);
         return '* NEED TO GET VALUE *';
     },
 
