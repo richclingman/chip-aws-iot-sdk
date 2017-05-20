@@ -33,7 +33,7 @@ describe('consoleLog', function () {
         });
     });
 
-    describe('update', function () {
+    describe('updateState', function () {
         it('should write json to console', function () {
 
             const message = {
@@ -51,7 +51,7 @@ describe('consoleLog', function () {
                 }
             };
 
-            consoleLogDriver.update(message);
+            consoleLogDriver.updateState(message);
 
             const result = consoleLogDriver.writeOutput.args[0][0];
             this.verify(result);
@@ -60,7 +60,7 @@ describe('consoleLog', function () {
     });
 
     describe('get', function () {
-        it('should return values from update', function () {
+        it('should return values from current state', function () {
             const message = {
                 state: {
                     desired: {
@@ -76,7 +76,7 @@ describe('consoleLog', function () {
                 }
             };
 
-            consoleLogDriver.update(message);
+            consoleLogDriver.updateState(message);
 
             const result = consoleLogDriver.get();
 

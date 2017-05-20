@@ -9,8 +9,6 @@
  *
  * This is a write-only device. There is currently no way to have
  * this device change states and generate change messages.
- *
- * @type {{update: module.exports.update}}
  */
 
 let value;
@@ -20,7 +18,7 @@ module.exports = {
         value = {};
         this.writeOutput('init() called');
     },
-    update: function(message) {
+    updateState: function(message) {
         value = message.state.desired;
 
         const json = JSON.stringify(message, null, 4);
