@@ -8,8 +8,8 @@ const shadowDeviceClass = require('./shadowDevice');
 function startDevice(args) {
 
     // @todo pass driver type through command line
-    const consoleLogDriver = require('./driver/consoleLog');
-    const driver = consoleLogDriver;
+    const consoleLogDriverClass = require('./driver/consoleLog');
+    const driver = new consoleLogDriverClass();
 
     new shadowDeviceClass(args, driver);
 }

@@ -16,7 +16,8 @@ describe('consoleLog', function () {
     let consoleLogDriver;
 
     beforeEach(function () {
-        consoleLogDriver = require('../driver/consoleLog');
+        const consoleLogDriverClass = require('../driver/consoleLog');
+        consoleLogDriver = new consoleLogDriverClass();
         sinon.stub(consoleLogDriver, 'writeOutput');
     });
 
