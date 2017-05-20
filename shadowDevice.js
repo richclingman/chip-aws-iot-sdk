@@ -28,16 +28,16 @@ let shadowDevice = function (args) {
         protocol: args.Protocol,
         port: args.Port,
         host: args.Host,
-        debug: args.Debug,
+        debug: args.Debug
 
         // last will & testiment -- mqtt server publishes report if client disconnects badly
         // http://docs.aws.amazon.com/iot/latest/developerguide/thing-shadow-data-flow.html
-        will: {
-            topic: 'chip/things/' + args.thingName + '/update',
-            payload: willPayload,
-            qos: 1,
-            retain: false
-        }
+        // will: {
+        //     topic: 'chip/things/' + args.thingName + '/update',
+        //     payload: willPayload,
+        //     qos: 1,
+        //     retain: false
+        // }
     });
 
     this.deviceConnect();
@@ -64,7 +64,7 @@ shadowDevice.prototype = {
     },
 
     registerThing: function() {
-        this.thingShadow.registerThing(
+        this.thingShadow.register(
             this.args.thingName,
             {
                 ignoreDeltas: true
@@ -76,6 +76,11 @@ shadowDevice.prototype = {
     registeredCallback: function (err, failedTopics) {
         if (isUndefined(err) && isUndefined(failedTopics)) {
             console.log('Device thing registered.');
+
+
+            // var clientToken = thingShadows[operation](thingName, state);
+
+
         }
     },
     registerEventHandlers: function () {
@@ -86,7 +91,7 @@ shadowDevice.prototype = {
         this.thingShadow.on('close', function () {
             console.log('close');
             this.thingShadow.unregister(thingName);
-        });
+        }.bind(this));
 
         this.thingShadow.on('reconnect', function () {
             console.log('reconnect');
@@ -107,7 +112,7 @@ shadowDevice.prototype = {
                 stack.pop();
             }
             console.log('offline');
-        });
+        }.bind(this));
 
         this.thingShadow.on('error', function (error) {
             console.log('error', error);
@@ -117,16 +122,19 @@ shadowDevice.prototype = {
             console.log('message', topic, payload.toString());
         });
 
-        this.thingShadow.on('status', function (thingName, stat, clientToken, stateObject) {
-            handleStatus(thingName, stat, clientToken, stateObject);
+        this.thingShadow.on('status', function (thingName, stat, stateObject) {
+            console.log('status', stat, clientToken, stateObject);
+            // handleStatus(thingName, stat, clientToken, stateObject);
         });
 
         this.thingShadow.on('delta', function (thingName, stateObject) {
-            handleDelta(thingName, stateObject);
+            console.log('delta', stateObject);
+            // handleDelta(thingName, stateObject);
         });
 
         this.thingShadow.on('timeout', function (thingName, clientToken) {
-            handleTimeout(thingName, clientToken);
+            console.log('timeout', clientToken);
+            // handleTimeout(thingName, clientToken);
         });
     }
 

@@ -13,8 +13,6 @@ const approvalsConfig = {
 };
 approvals.configure(approvalsConfig);
 
-// const config = require('../config.json');
-
 describe('shadowDevice', function () {
     let awsMock;
     let shadowDeviceClass;
