@@ -16,6 +16,7 @@ let shadowDevice = function (args) {
             }
         }
     };
+    const willTopic = 'myIot/lwt/' + args.thingName + '/update';
 
     this.thingShadow = thingShadow({
         keyPath: args.privateKey,
@@ -28,16 +29,16 @@ let shadowDevice = function (args) {
         protocol: args.Protocol,
         port: args.Port,
         host: args.Host,
-        debug: args.Debug
+        debug: args.Debug,
 
         // last will & testiment -- mqtt server publishes report if client disconnects badly
         // http://docs.aws.amazon.com/iot/latest/developerguide/thing-shadow-data-flow.html
-        // will: {
-        //     topic: 'chip/things/' + args.thingName + '/update',
-        //     payload: willPayload,
-        //     qos: 1,
-        //     retain: false
-        // }
+        will: {
+            topic: willTopic,
+            payload: JSON.stringify(willPayload),
+            qos: 1,
+            retain: false
+        }
     });
 
     this.deviceConnect();
@@ -81,7 +82,7 @@ shadowDevice.prototype = {
             let message = {
                 state: {
                     reported: {
-                        online: true,
+                        connected: true,
                         // a: 1,
                         // b: 544,
                         // c: 3,
