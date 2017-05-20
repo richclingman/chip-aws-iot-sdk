@@ -18,7 +18,8 @@ describe('chipProDev', function () {
     let executeGet;
 
     beforeEach(function () {
-        chipProDev = require('../driver/chipProDev');
+        const chipProDevClass = require('../driver/chipProDev');
+        chipProDev = new chipProDevClass();
         executeSet = sinon.stub(chipProDev, 'executeSet');
         executeGet = sinon.stub(chipProDev, 'executeGet').returns(0);
     });

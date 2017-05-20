@@ -15,7 +15,10 @@ const child = require('child');
 // *** SERIOUS SECURITY RISK ***
 // SHOULD NOT ALLOW BUILDING A SHELL COMMAND WITH UNTESTED VALUES
 
-const chipPinDev = {
+let ChipPinDev = function() {
+
+};
+ChipPinDev.prototype = {
     pinList: {
         'D0': {type: 'IO', pin: 132},
         'D1': {type: 'IO', pin: 133},
@@ -31,50 +34,50 @@ const chipPinDev = {
     },
 
     getPinList: function() {
-        return chipPinDev.pinList;
+        return this.pinList;
     },
 
     getPin: function(pinName) {
-        return chipPinDev.pinList[pinName] || null;
+        return this.pinList[pinName] || null;
     },
 
     exportPin: function (pin) {
         const cmd = pin + ' > /sys/class/gpio/export';
-        chipPinDev.executeSet(cmd);
+        this.executeSet(cmd);
     },
 
     unexportPin: function (pin) {
         const cmd = pin + ' > /sys/class/gpio/unexport';
-        chipPinDev.executeSet(cmd);
+        this.executeSet(cmd);
     },
 
     setDirection: function (pin, direction) {
         const cmd = direction + ' > /sys/class/gpio/gpio' + pin + '/direction';
-        chipPinDev.executeSet(cmd);
+        this.executeSet(cmd);
     },
 
     setValue: function (pin, value) {
         const cmd = value + ' > /sys/class/gpio/gpio' + pin + '/value';
-        chipPinDev.executeSet(cmd);
+        this.executeSet(cmd);
     },
 
     getValue: function (pin) {
         const cmd = '/sys/class/gpio/gpio' + pin + '/value';
-        return chipPinDev.executeGet(cmd);
+        return this.executeGet(cmd);
     },
 
     init: function () {
         const leds = [132, 133, 134, 135, 136, 137, 138, 139];
         leds.map(function (led) {
-            chipPinDev.exportPin(led);
-            chipPinDev.setDirection(led, 'out');
-            chipPinDev.setValue(led, 0);
-        });
+            this.exportPin(led);
+            this.setDirection(led, 'out');
+            this.setValue(led, 0);
+        }.bind(this));
     },
 
     teardown: function() {
-        for (var pinName in chipPinDev.pinList) {
-            chipPinDev.unexportPin(chipPinDev.pinList[pinName].pin);
+        for (var pinName in this.pinList) {
+            this.unexportPin(this.pinList[pinName].pin);
         }
     },
 
@@ -94,12 +97,12 @@ const chipPinDev = {
 
     getState: function() {
         let state = {};
-        Object.keys(chipPinDev.pinList).map(function(pinName) {
-            state[pinName] = chipPinDev.getValue(chipPinDev.pinList[pinName].pin);
-        });
+        Object.keys(this.pinList).map(function(pinName) {
+            state[pinName] = this.getValue(this.pinList[pinName].pin);
+        }.bind(this));
         return state;
     }
 
 };
 
-module.exports = chipPinDev;
+module.exports = ChipPinDev;
