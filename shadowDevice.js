@@ -79,7 +79,8 @@ shadowDevice.prototype = {
         if (isUndefined(err) && isUndefined(failedTopics)) {
             console.log('Device thing registered.');
 
-
+            // report current state and then use delta message to update current state
+            // @todo - get current state from driver
             let message = {
                 state: {
                     reported: {

@@ -90,34 +90,25 @@ describe('chipProDev', function () {
             const messages = [
                 {
                     state: {
-                        desired: {
                             D0: 'on',
                             D1: 'off',
-                        },
-                        reported: null
                     }
                 },
                 {
                     state: {
-                        desired: {
                             D3: 'on',
                             D4: 'invalid',
                             PWM0: 123,
                             PWM1: 456
-                        },
-                        reported: null
                     }
                 },
                 {
                     state: {
-                        desired: {
                             D0: 'off',
                             D2: 'off',
                             D3: 'off',
                             D4: null,
                             PWM0: null,
-                        },
-                        reported: null
                     }
                 },
             ];

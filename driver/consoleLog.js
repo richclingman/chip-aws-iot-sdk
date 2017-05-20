@@ -21,7 +21,7 @@ consoleLogDriver.prototype = {
         this.writeOutput('init() called');
     },
     updateState: function(message) {
-        Object.assign(this.value, message.state.desired);
+        Object.assign(this.value, message.state);
 
         // clone object so test sees distinct values for each call
         const reportedOutput = Object.assign({}, this.value);

@@ -127,10 +127,12 @@ ChipPinDev.prototype = {
     },
 
     updateState: function (message) {
-        const desired = message.state.desired;
+        const state = message.state;
 
         // @todo - should not update this.value until 'desired' has been processed
-        Object.assign(this.value, desired);
+        // @todo - AFTER updating state THEN 'report' new state
+        // @todo - for invalid properties, report the value as set. Can store values. Will remove from 'delta'
+        Object.assign(this.value, state);
 
         console.log('VAL', this.value);
 
@@ -138,9 +140,9 @@ ChipPinDev.prototype = {
         const json = JSON.stringify(message, null, 4);
         console.log('UPDATE: ', json);
 
-        Object.keys(desired).map(function (pinName) {
+        Object.keys(state).map(function (pinName) {
             const pinObj = this.getPinObj(pinName);
-            const value = desired[pinName];
+            const value = state[pinName];
             console.log('po', pinObj, value);
 
             if (pinObj && this.isValidOutput(pinObj.type, value)) {

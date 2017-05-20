@@ -40,32 +40,23 @@ describe('consoleLog', function () {
             const messages = [
                 {
                     state: {
-                        desired: {
-                            firstAttribute: 1,
-                            secondAttribute: 2
-                        },
-                        reported: null
+                        firstAttribute: 1,
+                        secondAttribute: 2
                     }
                 },
                 {
                     state: {
-                        desired: {
-                            attribute3: 3,
-                            attribute4: 4,
-                            attribute5: 5,
-                            attribute6: 6,
-                            attribute7: 7
-                        },
-                        reported: null
+                        attribute3: 3,
+                        attribute4: 4,
+                        attribute5: 5,
+                        attribute6: 6,
+                        attribute7: 7
                     }
                 },
                 {
                     state: {
-                        desired: {
-                            attribute4: null,
-                            attribute5: null
-                        },
-                        reported: null
+                        attribute4: null,
+                        attribute5: null
                     }
                 },
             ];
@@ -84,16 +75,13 @@ describe('consoleLog', function () {
         it('should return values from current state', function () {
             const message = {
                 state: {
-                    desired: {
-                        firstAttribute: 11,
-                        secondAttribute: 22,
-                        attribute3: 33,
-                        attribute4: 44,
-                        attribute5: 55,
-                        attribute6: 66,
-                        attribute7: 77
-                    },
-                    reported: null
+                    firstAttribute: 11,
+                    secondAttribute: 22,
+                    attribute3: 33,
+                    attribute4: 44,
+                    attribute5: 55,
+                    attribute6: 66,
+                    attribute7: 77
                 }
             };
 
