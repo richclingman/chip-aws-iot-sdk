@@ -12,7 +12,13 @@
         "protocol": "Protocol",
         "port": "Port",
         "host": "Host",
-        "debug": false
+        "debug": false,
+        "will": {
+          "topic": "myIot/lwt/testThing/update",
+          "payload": "{\"state\":{\"reported\":{\"connected\":\"false\"}}}",
+          "qos": 1,
+          "retain": false
+        }
       }
     ]
   ],
