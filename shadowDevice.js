@@ -4,10 +4,11 @@ const thingShadow = require('aws-iot-device-sdk').thingShadow;
 
 const isUndefined = require('aws-iot-device-sdk/common/lib/is-undefined');
 
-let shadowDevice = function (args) {
+let shadowDevice = function (args, driver) {
     console.log('main');
 
     this.args = args;
+    this.driver = driver;
 
     const willPayload = {
         "state": {
@@ -148,8 +149,8 @@ shadowDevice.prototype = {
 
         this.thingShadow.on('delta', function (thingName, stateObject) {
             console.log('delta', JSON.stringify(stateObject));
-            // handleDelta(thingName, stateObject);
-        });
+            this.driver.updateState(stateObject);
+        }.bind(this));
 
         this.thingShadow.on('timeout', function (thingName, clientToken) {
             console.log('timeout', clientToken);

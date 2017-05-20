@@ -6,7 +6,12 @@ const cmdLineProcess = require('aws-iot-device-sdk/examples/lib/cmdline');
 const shadowDeviceClass = require('./shadowDevice');
 
 function startDevice(args) {
-    const shadowDevice = new shadowDeviceClass(args);
+
+    // @todo pass driver type through command line
+    const consoleLogDriver = require('./driver/consoleLog');
+    const driver = consoleLogDriver;
+
+    new shadowDeviceClass(args, driver);
 }
 
 if (process.argv.length === 2) {

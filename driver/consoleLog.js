@@ -28,6 +28,6 @@ module.exports = {
         return value;
     },
     writeOutput: function(arg) {
-        console.log(arg);
+        console.log('\nDRIVER OUT: ', arg);
     }
 };
