@@ -1,0 +1,26 @@
+[
+  {
+    "IO": "on",
+    "isValid": true
+  },
+  {
+    "IO": "off",
+    "isValid": true
+  },
+  {
+    "IO": 1,
+    "isValid": false
+  },
+  {
+    "IO": "2",
+    "isValid": false
+  },
+  {
+    "IO": "string",
+    "isValid": false
+  },
+  {
+    "IO": null,
+    "isValid": false
+  }
+]

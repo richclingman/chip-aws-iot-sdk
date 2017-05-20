@@ -64,5 +64,25 @@ describe('chipProDev', function () {
 
     });
 
+    describe('isValidOutput', function() {
+        it('should reject invalid values', function () {
+            const outputValues = [
+                {type: "IO", value: "on"},
+                {type: "IO", value: "off"},
+                {type: "IO", value: 1},
+                {type: "IO", value: "2"},
+                {type: "IO", value: "string"},
+                {type: "IO", value: null},
+            ];
+
+            const result = outputValues.map(function ({type, value}) {
+                return {[type]: value, "isValid": chipProDev.isValidOutput(type, value)};
+            }.bind(this));
+
+            this.verifyAsJSON(result);
+        });
+
+    });
+
 
 });

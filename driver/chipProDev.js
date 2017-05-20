@@ -15,7 +15,7 @@ const child = require('child');
 // *** SERIOUS SECURITY RISK ***
 // SHOULD NOT ALLOW BUILDING A SHELL COMMAND WITH UNTESTED VALUES
 
-let ChipPinDev = function() {
+let ChipPinDev = function () {
 
 };
 ChipPinDev.prototype = {
@@ -33,11 +33,29 @@ ChipPinDev.prototype = {
         // 'PWM1': {type: 'PWM', pin: 10}
     },
 
-    getPinList: function() {
+    validators: {
+        /**
+         * @param value
+         * @returns {boolean}
+         */
+        IO: function(value) {
+            return value === 'on' || value === 'off';
+        }
+    },
+
+    isValidOutput: function(pinType, value) {
+        if (!pinType in this.validators) {
+            return false;
+        }
+
+        return this.validators[pinType](value);
+    },
+
+    getPinList: function () {
         return this.pinList;
     },
 
-    getPin: function(pinName) {
+    getPin: function (pinName) {
         return this.pinList[pinName] || null;
     },
 
@@ -75,7 +93,7 @@ ChipPinDev.prototype = {
         }.bind(this));
     },
 
-    teardown: function() {
+    teardown: function () {
         for (var pinName in this.pinList) {
             this.unexportPin(this.pinList[pinName].pin);
         }
@@ -95,9 +113,9 @@ ChipPinDev.prototype = {
         return '* NEED TO GET VALUE *';
     },
 
-    getState: function() {
+    getState: function () {
         let state = {};
-        Object.keys(this.pinList).map(function(pinName) {
+        Object.keys(this.pinList).map(function (pinName) {
             state[pinName] = this.getValue(this.pinList[pinName].pin);
         }.bind(this));
         return state;
