@@ -1,20 +1,20 @@
 [
   [
-    "on > /sys/class/gpio/gpio132/value"
+    "1 > /sys/class/gpio/gpio132/value"
   ],
   [
-    "off > /sys/class/gpio/gpio133/value"
+    "0 > /sys/class/gpio/gpio133/value"
   ],
   [
-    "on > /sys/class/gpio/gpio135/value"
+    "1 > /sys/class/gpio/gpio135/value"
   ],
   [
-    "off > /sys/class/gpio/gpio132/value"
+    "0 > /sys/class/gpio/gpio132/value"
   ],
   [
-    "off > /sys/class/gpio/gpio134/value"
+    "0 > /sys/class/gpio/gpio134/value"
   ],
   [
-    "off > /sys/class/gpio/gpio135/value"
+    "0 > /sys/class/gpio/gpio135/value"
   ]
 ]

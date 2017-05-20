@@ -39,12 +39,12 @@ ChipPinDev.prototype = {
          * @param value
          * @returns {boolean}
          */
-        IO: function(value) {
-            return value === 'on' || value === 'off';
+        IO: function (value) {
+            return value === 0 || value === 1;
         }
     },
 
-    isValidOutput: function(pinType, value) {
+    isValidOutput: function (pinType, value) {
         if (!pinType in this.validators) {
             return false;
         }
@@ -126,7 +126,7 @@ ChipPinDev.prototype = {
         return state;
     },
 
-    getPinObj: function(pinName) {
+    getPinObj: function (pinName) {
         return this.pinList[pinName] || null;
     },
 
@@ -163,7 +163,7 @@ ChipPinDev.prototype = {
 
     },
 
-    writeOutput: function(arg) {
+    writeOutput: function (arg) {
         console.log('\nDRIVER OUT: ', arg);
     }
 

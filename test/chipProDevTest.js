@@ -64,12 +64,12 @@ describe('chipProDev', function () {
 
     });
 
-    describe('isValidOutput', function() {
+    describe('isValidOutput', function () {
         it('should reject invalid values', function () {
             const outputValues = [
-                {type: "IO", value: "on"},
-                {type: "IO", value: "off"},
                 {type: "IO", value: 1},
+                {type: "IO", value: 0},
+                {type: "IO", value: 2},
                 {type: "IO", value: "2"},
                 {type: "IO", value: "string"},
                 {type: "IO", value: null},
@@ -90,25 +90,25 @@ describe('chipProDev', function () {
             const messages = [
                 {
                     state: {
-                            D0: 'on',
-                            D1: 'off',
+                        D0: 1,
+                        D1: 0,
                     }
                 },
                 {
                     state: {
-                            D3: 'on',
-                            D4: 'invalid',
-                            PWM0: 123,
-                            PWM1: 456
+                        D3: 1,
+                        D4: 'invalid',
+                        PWM0: 123,
+                        PWM1: 456
                     }
                 },
                 {
                     state: {
-                            D0: 'off',
-                            D2: 'off',
-                            D3: 'off',
-                            D4: null,
-                            PWM0: null,
+                        D0: 0,
+                        D2: 0,
+                        D3: 0,
+                        D4: null,
+                        PWM0: null,
                     }
                 },
             ];
