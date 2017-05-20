@@ -34,7 +34,7 @@ describe('consoleLog', function () {
         });
     });
 
-    describe.only('updateState', function () {
+    describe('updateState', function () {
         it('should merge deltas and write json to console', function () {
 
             const messages = [

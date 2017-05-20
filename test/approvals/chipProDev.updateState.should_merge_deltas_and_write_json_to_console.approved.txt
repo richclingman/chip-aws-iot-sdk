@@ -1,0 +1,20 @@
+[
+  [
+    "on > /sys/class/gpio/gpio132/value"
+  ],
+  [
+    "off > /sys/class/gpio/gpio133/value"
+  ],
+  [
+    "on > /sys/class/gpio/gpio135/value"
+  ],
+  [
+    "off > /sys/class/gpio/gpio132/value"
+  ],
+  [
+    "off > /sys/class/gpio/gpio134/value"
+  ],
+  [
+    "off > /sys/class/gpio/gpio135/value"
+  ]
+]

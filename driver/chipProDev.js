@@ -19,6 +19,7 @@ let ChipPinDev = function () {
 
 };
 ChipPinDev.prototype = {
+    value: {},
     pinList: {
         'D0': {type: 'IO', pin: 132},
         'D1': {type: 'IO', pin: 133},
@@ -119,6 +120,45 @@ ChipPinDev.prototype = {
             state[pinName] = this.getValue(this.pinList[pinName].pin);
         }.bind(this));
         return state;
+    },
+
+    getPinObj: function(pinName) {
+        return this.pinList[pinName] || null;
+    },
+
+    updateState: function (message) {
+        const desired = message.state.desired;
+
+        // @todo - should not update this.value until 'desired' has been processed
+        Object.assign(this.value, desired);
+
+        console.log('VAL', this.value);
+
+
+        const json = JSON.stringify(message, null, 4);
+        console.log('UPDATE: ', json);
+
+        Object.keys(desired).map(function (pinName) {
+            const pinObj = this.getPinObj(pinName);
+            const value = desired[pinName];
+            console.log('po', pinObj, value);
+
+            if (pinObj && this.isValidOutput(pinObj.type, value)) {
+                console.log('good po');
+                this.setValue(pinObj.pin, value);
+                console.log('UPDATE PIN:', pinName, pinObj);
+
+            } else {
+                this.writeOutput('INVALID:', pinName);
+            }
+
+
+        }.bind(this));
+
+    },
+
+    writeOutput: function(arg) {
+        console.log('\nDRIVER OUT: ', arg);
     }
 
 };
