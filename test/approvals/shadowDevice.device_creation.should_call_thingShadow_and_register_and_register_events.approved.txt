@@ -12,19 +12,7 @@
         "protocol": "Protocol",
         "port": "Port",
         "host": "Host",
-        "debug": false,
-        "will": {
-          "topic": "chip/things/testThing/update",
-          "payload": {
-            "state": {
-              "reported": {
-                "connected": "false"
-              }
-            }
-          },
-          "qos": 1,
-          "retain": false
-        }
+        "debug": false
       }
     ]
   ],
@@ -32,7 +20,7 @@
     [
       "testThing",
       {
-        "ignoreDeltas": true
+        "ignoreDeltas": false
       },
       null
     ]

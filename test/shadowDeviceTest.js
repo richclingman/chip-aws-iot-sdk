@@ -30,7 +30,7 @@ describe('shadowDevice', function () {
         awsMock = {
             thingShadow: sinon.spy(function () {
                 return {
-                    registerThing: registerMock,
+                    register: registerMock,
                     on: onMock
                 };
             })
@@ -64,7 +64,7 @@ describe('shadowDevice', function () {
         mockery.disable()
     });
 
-    describe.only('device creation', function() {
+    describe('device creation', function() {
         it('should call thingShadow and register and register events', function () {
             let shadowDevice = new shadowDeviceClass(args);
 

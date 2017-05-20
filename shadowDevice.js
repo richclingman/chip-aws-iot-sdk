@@ -63,13 +63,13 @@ shadowDevice.prototype = {
         this.registerThing();
     },
 
-    registerThing: function() {
+    registerThing: function () {
         this.thingShadow.register(
             this.args.thingName,
             {
-                ignoreDeltas: true
+                ignoreDeltas: false
             },
-            this.registeredCallback
+            this.registeredCallback.bind(this)
         );
     },
 
@@ -78,11 +78,29 @@ shadowDevice.prototype = {
             console.log('Device thing registered.');
 
 
-            // var clientToken = thingShadows[operation](thingName, state);
-
+            let message = {
+                state: {
+                    reported: {
+                        online: true,
+                        // a: 1,
+                        // b: 544,
+                        // c: 3,
+                        // d: 4,
+                        // color: "",
+                        "e": {"key": "value2", "another": "thing4"}
+                    }
+                }
+            };
+            const clientToken = this.publishUpdate(message);
+            console.log('sending update', clientToken);
 
         }
     },
+
+    publishUpdate(message) {
+        return this.thingShadow.update(this.args.thingName, message);
+    },
+
     registerEventHandlers: function () {
         this.thingShadow.on('connect', function () {
             console.log('connected to AWS IoT');
@@ -123,12 +141,12 @@ shadowDevice.prototype = {
         });
 
         this.thingShadow.on('status', function (thingName, stat, stateObject) {
-            console.log('status', stat, clientToken, stateObject);
+            console.log('status', stat, stateObject);
             // handleStatus(thingName, stat, clientToken, stateObject);
         });
 
         this.thingShadow.on('delta', function (thingName, stateObject) {
-            console.log('delta', stateObject);
+            console.log('delta', JSON.stringify(stateObject));
             // handleDelta(thingName, stateObject);
         });
 
