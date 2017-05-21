@@ -21,7 +21,21 @@ let shadowDevice = function (args, driver) {
     });
     driver.on('change', function(err, data) {
         console.log('change', err, data);
-    });
+
+        function explodeAndRebuild(data) {
+            // to turn 'D2:1' to object {D2:1}
+            const parts = data.split(':');
+            const json = '{"' + parts[0] + '":' + parts[1] + '}';
+            return JSON.parse(json);
+        }
+
+        const message = {
+            state: {
+                desired: explodeAndRebuild(data)
+            }
+        };
+        this.publishUpdate(message);
+    }.bind(this));
 
     driver.init();
 
@@ -58,14 +72,6 @@ let shadowDevice = function (args, driver) {
     });
 
     this.deviceConnect();
-
-    //
-    // Operation timeout in milliseconds
-    //
-    // const operationTimeout = 10000;
-
-    // const thingName = 'RGBLedLamp';
-
 };
 
 shadowDevice.prototype = {
@@ -117,6 +123,7 @@ shadowDevice.prototype = {
     },
 
     publishUpdate(message) {
+        console.log('publish', message);
         return this.thingShadow.update(this.args.thingName, message);
     },
 
