@@ -34,7 +34,7 @@ let shadowDevice = function (args, driver) {
         host: args.Host,
         debug: args.Debug,
 
-        // last will & testiment -- mqtt server publishes report if client disconnects badly
+        // last will & testament -- mqtt server publishes report if client disconnects badly
         // http://docs.aws.amazon.com/iot/latest/developerguide/thing-shadow-data-flow.html
         will: {
             topic: willTopic,

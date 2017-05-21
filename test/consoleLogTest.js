@@ -1,6 +1,8 @@
 'use strict';
 
 const sinon = require('sinon');
+const expect = require('chai').expect;
+const mockery = require('mockery');
 
 const approvals = require('approvals').mocha('./test/approvals');
 
@@ -14,15 +16,33 @@ approvals.configure(approvalsConfig);
 
 describe('consoleLog', function () {
     let consoleLogDriver;
+    let promptMock;
+    let promptCallback;
 
     beforeEach(function () {
+        promptMock = {
+            start: sinon.stub(),
+            get: function (config, callback) {
+                promptCallback = callback;
+            }
+        };
+
+        mockery.enable({
+            warnOnUnregistered: false
+        });
+        mockery.registerMock('prompt', promptMock);
+
         const consoleLogDriverClass = require('../driver/consoleLog');
         consoleLogDriver = new consoleLogDriverClass();
+
         sinon.stub(consoleLogDriver, 'writeOutput');
     });
 
     afterEach(function () {
         consoleLogDriver.writeOutput.restore();
+
+        mockery.deregisterAll();
+        mockery.disable()
     });
 
     describe('init', function () {
@@ -90,6 +110,46 @@ describe('consoleLog', function () {
             const result = consoleLogDriver.get();
 
             this.verifyAsJSON(result);
+        });
+
+    });
+
+    describe('loopForStateChange', function () {
+        it('should require "change" handler', function () {
+            let handlerIsRequired = false;
+
+            try {
+                consoleLogDriver.loopForStateChange();
+            } catch (e) {
+                handlerIsRequired = true;
+            }
+
+            expect(handlerIsRequired).to.be.true;
+        });
+
+        it('should pass through various inputs', function () {
+            const changeHandler = sinon.stub();
+            const exitHandler = sinon.stub();
+
+            consoleLogDriver.on('change', changeHandler);
+            consoleLogDriver.on('exit', exitHandler);
+
+            consoleLogDriver.loopForStateChange();
+
+            [
+                'D0:0',
+                'D0:1',
+                'D0:2',
+                'D1:0',
+                'exit'
+            ].map(function (change) {
+                promptCallback(null, {State: change});
+            });
+
+            this.verifyAsJSON([
+                changeHandler.args,
+                exitHandler.args
+            ]);
         });
 
     });
