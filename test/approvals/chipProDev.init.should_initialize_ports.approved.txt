@@ -1,6 +1,6 @@
 [
   [
-    "132 > /sys/class/gpio/export"
+    "test ! -e /sys/class/gpio/gpio132 && echo 132 > /sys/class/gpio/export || echo \"already exported\""
   ],
   [
     "out > /sys/class/gpio/gpio132/direction"
@@ -9,7 +9,7 @@
     "0 > /sys/class/gpio/gpio132/value"
   ],
   [
-    "133 > /sys/class/gpio/export"
+    "test ! -e /sys/class/gpio/gpio133 && echo 133 > /sys/class/gpio/export || echo \"already exported\""
   ],
   [
     "out > /sys/class/gpio/gpio133/direction"
@@ -18,7 +18,7 @@
     "0 > /sys/class/gpio/gpio133/value"
   ],
   [
-    "134 > /sys/class/gpio/export"
+    "test ! -e /sys/class/gpio/gpio134 && echo 134 > /sys/class/gpio/export || echo \"already exported\""
   ],
   [
     "out > /sys/class/gpio/gpio134/direction"
@@ -27,7 +27,7 @@
     "0 > /sys/class/gpio/gpio134/value"
   ],
   [
-    "135 > /sys/class/gpio/export"
+    "test ! -e /sys/class/gpio/gpio135 && echo 135 > /sys/class/gpio/export || echo \"already exported\""
   ],
   [
     "out > /sys/class/gpio/gpio135/direction"
@@ -36,7 +36,7 @@
     "0 > /sys/class/gpio/gpio135/value"
   ],
   [
-    "136 > /sys/class/gpio/export"
+    "test ! -e /sys/class/gpio/gpio136 && echo 136 > /sys/class/gpio/export || echo \"already exported\""
   ],
   [
     "out > /sys/class/gpio/gpio136/direction"
@@ -45,7 +45,7 @@
     "0 > /sys/class/gpio/gpio136/value"
   ],
   [
-    "137 > /sys/class/gpio/export"
+    "test ! -e /sys/class/gpio/gpio137 && echo 137 > /sys/class/gpio/export || echo \"already exported\""
   ],
   [
     "out > /sys/class/gpio/gpio137/direction"
@@ -54,7 +54,7 @@
     "0 > /sys/class/gpio/gpio137/value"
   ],
   [
-    "138 > /sys/class/gpio/export"
+    "test ! -e /sys/class/gpio/gpio138 && echo 138 > /sys/class/gpio/export || echo \"already exported\""
   ],
   [
     "out > /sys/class/gpio/gpio138/direction"
@@ -63,7 +63,7 @@
     "0 > /sys/class/gpio/gpio138/value"
   ],
   [
-    "139 > /sys/class/gpio/export"
+    "test ! -e /sys/class/gpio/gpio139 && echo 139 > /sys/class/gpio/export || echo \"already exported\""
   ],
   [
     "out > /sys/class/gpio/gpio139/direction"
