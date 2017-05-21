@@ -61,12 +61,14 @@ ChipPinDev.prototype = {
     },
 
     exportPin: function (pin) {
-        const cmd = pin + ' > /sys/class/gpio/export';
+        const cmd =  'test ! -e /sys/class/gpio/gpio' + pin
+            + ' && echo ' + pin + ' > /sys/class/gpio/export || echo "already exported"';
         this.executeSet(cmd);
     },
 
     unexportPin: function (pin) {
-        const cmd = pin + ' > /sys/class/gpio/unexport';
+        const cmd =  'test -e /sys/class/gpio/gpio' + pin
+            + ' && echo ' + pin + ' > /sys/class/gpio/unexport || echo "not exported"';
         this.executeSet(cmd);
     },
 
@@ -95,7 +97,7 @@ ChipPinDev.prototype = {
     },
 
     teardown: function () {
-        for (var pinName in this.pinList) {
+        for (let pinName in this.pinList) {
             this.unexportPin(this.pinList[pinName].pin);
         }
     },

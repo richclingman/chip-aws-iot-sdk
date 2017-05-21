@@ -1,5 +1,8 @@
-# alias ll="ls -l"
-# alias l.="ls -la"
+alias ll="ls -l --color=auto"
+alias l.="ls -la --color=auto"
+
+alias lsgpio="ls -l --color=auto /sys/class/gpio/"
+alias lspwm="ls -l --color=auto /sys/class/pwm/"
 
 alias wifilist="nmcli device wifi list"
 alias wificonnect="sudo nmcli device wifi connect WIFI-SSID password WIFI-PASSWORD ifname wlan0"
