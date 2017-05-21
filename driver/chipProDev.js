@@ -20,6 +20,10 @@ let ChipPinDev = function () {
 };
 ChipPinDev.prototype = {
     value: {},
+    eventHandlers: {},
+    on: function(event, handler) {
+        this.eventHandlers[event] = handler;
+    },
     pinList: {
         'D0': {type: 'IO', pin: 132},
         'D1': {type: 'IO', pin: 133},
@@ -167,6 +171,10 @@ ChipPinDev.prototype = {
 
     writeOutput: function (arg) {
         console.log('\nDRIVER OUT: ', arg);
+    },
+    
+    loopForStateChange: function () {
+        
     }
 
 };

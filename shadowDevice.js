@@ -4,11 +4,24 @@ const thingShadow = require('aws-iot-device-sdk').thingShadow;
 
 const isUndefined = require('aws-iot-device-sdk/common/lib/is-undefined');
 
+
+// @todo - change to using async.waterfall instead of hidden callbacks
+
+
 let shadowDevice = function (args, driver) {
     console.log('main');
 
     this.args = args;
     this.driver = driver;
+
+    driver.on('exit', function() {
+        console.log('exiting');
+
+        throw new Error('Exiting');
+    });
+    driver.on('change', function(err, data) {
+        console.log('change', err, data);
+    });
 
     driver.init();
 
@@ -99,6 +112,7 @@ shadowDevice.prototype = {
             const clientToken = this.publishUpdate(message);
             console.log('sending update', clientToken);
 
+            this.driver.loopForStateChange();
         }
     },
 

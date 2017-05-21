@@ -67,10 +67,11 @@ describe('shadowDevice', function () {
     describe('device creation', function () {
         it('should call thingShadow and register and register events', function () {
             const driver = {
-                init: function () {
-                }
+                init: sinon.stub(),
+                on: sinon.stub()
             };
-            const shadowDevice = new shadowDeviceClass(args, driver);
+
+            new shadowDeviceClass(args, driver);
 
             let result = {};
             result.thingShadowCall = awsMock.thingShadow.args;
