@@ -101,32 +101,47 @@ ChipPinDev.prototype = {
     },
 
     setPwmEnable: function (pwm, isEnabled) {
-        const cmd = 'echo ' + isEnabled + ' > /sys/class/pwm/pwmchip0/pwm' + pwm + '/enable';
+        const cmd = isEnabled + ' > /sys/class/pwm/pwmchip0/pwm' + pwm + '/enable';
         this.executeSet(cmd);
     },
 
     setPwmPolarity: function (pwm, polarity) {
-        const cmd = 'echo ' + polarity + ' > /sys/class/pwm/pwmchip0/pwm' + pwm + '/polarity';
+        const cmd = polarity + ' > /sys/class/pwm/pwmchip0/pwm' + pwm + '/polarity';
         this.executeSet(cmd);
     },
 
     setPwmPeriod: function (pwm, period) {
-        const cmd = 'echo ' + period + ' > /sys/class/pwm/pwmchip0/pwm' + pwm + '/period';
+        const cmd = period + ' > /sys/class/pwm/pwmchip0/pwm' + pwm + '/period';
         this.executeSet(cmd);
     },
 
     setPwmDutyCycle: function (pwm, dutyCycle) {
-        const cmd = 'echo ' + dutyCycle + ' > /sys/class/pwm/pwmchip0/pwm' + pwm + '/duty_cycle';
+        const cmd = dutyCycle + ' > /sys/class/pwm/pwmchip0/pwm' + pwm + '/duty_cycle';
         this.executeSet(cmd);
     },
 
     init: function () {
+
+        // @todo - use pinList
+
         const leds = [132, 133, 134, 135, 136, 137, 138, 139];
         leds.map(function (led) {
             this.exportPin(led);
             this.setDirection(led, 'out');
             this.setValue(led, 0);
         }.bind(this));
+
+
+        // testing - init pwm to 50% alternating
+
+        // [0, 1].map(function(pwm) {
+        //     this.exportPwm(pwm);
+        //     this.setPwmEnable(pwm, 0);
+        //     this.setPwmPolarity(pwm, pwm ? 'normal' : 'inversed');
+        //     this.setPwmEnable(pwm, 1);
+        //     this.setPwmPeriod(pwm, 1000000000);
+        //     this.setPwmDutyCycle(pwm, 500000000);
+        // }.bind(this));
     },
 
     teardown: function () {
@@ -170,7 +185,7 @@ ChipPinDev.prototype = {
 
         // @todo - should not update this.value until 'desired' has been processed
         // @todo - AFTER updating state THEN 'report' new state
-        // @todo - for invalid properties, report the value as set. Can store values. Will remove from 'delta'
+        // @todo - for unsupported properties, report the value as set. (Store values.) This will remove from 'delta'
         Object.assign(this.value, state);
 
         console.log('VAL', this.value);
