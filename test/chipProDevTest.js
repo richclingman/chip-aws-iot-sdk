@@ -122,4 +122,32 @@ describe('chipProDev', function () {
         });
 
     });
+
+    describe('PWM', function () {
+        it('should operate all functions', function () {
+            let results = [];
+
+            [
+                {name: 'exportPwm', params: [[0], [1]]},
+                {name: 'unexportPwm', params: [[0], [1]]},
+                {name: 'setPwmEnable', params: [[0, 0], [0, 1], [1, 0], [1, 1]]},
+                {name: 'setPwmPolarity', params: [[0, 'normal'], [1, 'inversed']]},
+                {name: 'setPwmPeriod', params: [[0, 1000000000], [1, 505050]]},
+                {name: 'setPwmDutyCycle', params: [[0, 454545], [1, 300000000]]},
+            ].map(function (testObj) {
+                results.push('- - - - -');
+                results.push(JSON.stringify(testObj));
+
+                testObj.params.map(function (params) {
+                    executeSet.reset();
+                    chipProDev[testObj.name].apply(chipProDev, params);
+                    results.push(executeSet.args[0][0]);
+                });
+            });
+
+            this.verifyAsJSON(results);
+        });
+
+    });
+
 });

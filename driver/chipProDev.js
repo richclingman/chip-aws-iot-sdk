@@ -21,7 +21,7 @@ let ChipPinDev = function () {
 ChipPinDev.prototype = {
     value: {},
     eventHandlers: {},
-    on: function(event, handler) {
+    on: function (event, handler) {
         this.eventHandlers[event] = handler;
     },
     pinList: {
@@ -33,9 +33,6 @@ ChipPinDev.prototype = {
         'D5': {type: 'IO', pin: 137},
         'D6': {type: 'IO', pin: 138},
         'D7': {type: 'IO', pin: 139}
-
-        // 'PWM0': {type: 'PWM', pin: 9},
-        // 'PWM1': {type: 'PWM', pin: 10}
     },
 
     validators: {
@@ -65,13 +62,13 @@ ChipPinDev.prototype = {
     },
 
     exportPin: function (pin) {
-        const cmd =  'test ! -e /sys/class/gpio/gpio' + pin
+        const cmd = 'test ! -e /sys/class/gpio/gpio' + pin
             + ' && echo ' + pin + ' > /sys/class/gpio/export || echo "already exported"';
         this.executeSet(cmd);
     },
 
     unexportPin: function (pin) {
-        const cmd =  'test -e /sys/class/gpio/gpio' + pin
+        const cmd = 'test -e /sys/class/gpio/gpio' + pin
             + ' && echo ' + pin + ' > /sys/class/gpio/unexport || echo "not exported"';
         this.executeSet(cmd);
     },
@@ -89,6 +86,38 @@ ChipPinDev.prototype = {
     getValue: function (pin) {
         const cmd = '/sys/class/gpio/gpio' + pin + '/value';
         return this.executeGet(cmd);
+    },
+
+    exportPwm: function (pwm) {
+        const cmd = 'test ! -e /sys/class/pwm/pwmchip0/pwm' + pwm
+            + ' && echo ' + pwm + ' > /sys/class/pwm/pwmchip0/export || echo "already exported"';
+        this.executeSet(cmd);
+    },
+
+    unexportPwm: function (pwm) {
+        const cmd = 'test -e /sys/class/pwm/pwmchip0/pwm' + pwm
+            + ' && echo ' + pwm + ' > /sys/class/pwm/pwmchip0/unexport || echo "not exported"';
+        this.executeSet(cmd);
+    },
+
+    setPwmEnable: function (pwm, isEnabled) {
+        const cmd = 'echo ' + isEnabled + ' > /sys/class/pwm/pwmchip0/pwm' + pwm + '/enable';
+        this.executeSet(cmd);
+    },
+
+    setPwmPolarity: function (pwm, polarity) {
+        const cmd = 'echo ' + polarity + ' > /sys/class/pwm/pwmchip0/pwm' + pwm + '/polarity';
+        this.executeSet(cmd);
+    },
+
+    setPwmPeriod: function (pwm, period) {
+        const cmd = 'echo ' + period + ' > /sys/class/pwm/pwmchip0/pwm' + pwm + '/period';
+        this.executeSet(cmd);
+    },
+
+    setPwmDutyCycle: function (pwm, dutyCycle) {
+        const cmd = 'echo ' + dutyCycle + ' > /sys/class/pwm/pwmchip0/pwm' + pwm + '/duty_cycle';
+        this.executeSet(cmd);
     },
 
     init: function () {
@@ -172,9 +201,9 @@ ChipPinDev.prototype = {
     writeOutput: function (arg) {
         console.log('\nDRIVER OUT: ', arg);
     },
-    
+
     loopForStateChange: function () {
-        
+
     }
 
 };
