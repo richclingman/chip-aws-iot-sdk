@@ -18,7 +18,8 @@
     "sinon": "^2.2.0"
   },
   "scripts": {
-    "chip": "node ./shadowDevice.js -f certs -F config.json",
+    "chip": "node ./runChipProDev.js -f certs -F config.json",
+    "console": "node ./runConsole.js -f certs -F config.json",
     "test": "./node_modules/.bin/mocha --reporter spec",
     "devices": "node ./node_modules/aws-iot-device-sdk/examples/device-example.js -f ./certs --thing-name RichChipProDev -F ./config.json --debug=true --test-mode=1 & node ./node_modules/aws-iot-device-sdk/examples/device-example.js -f ./certs --thing-name RichChipProDev -F ./config.json --debug=true --test-mode=2 &",
     "device1": "node ./node_modules/aws-iot-device-sdk/examples/device-example.js -f ./certs --thing-name RichChipProDev -F ./config.json --debug=true --test-mode=1",
