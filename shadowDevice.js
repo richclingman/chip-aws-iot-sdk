@@ -19,19 +19,12 @@ let shadowDevice = function (args, driver) {
 
         throw new Error('Exiting');
     });
-    driver.on('change', function(err, data) {
-        console.log('change', err, data);
-
-        function explodeAndRebuild(data) {
-            // to turn 'D2:1' to object {D2:1}
-            const parts = data.split(':');
-            const json = '{"' + parts[0] + '":' + parts[1] + '}';
-            return JSON.parse(json);
-        }
+    driver.on('change', function (err, state) {
+        console.log('change', err, state);
 
         const message = {
             state: {
-                desired: explodeAndRebuild(data)
+                desired: state
             }
         };
         this.publishUpdate(message);

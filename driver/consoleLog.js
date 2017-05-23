@@ -61,8 +61,8 @@ consoleLogDriver.prototype = {
                 return;
             }
 
-            const state = data.State;
-            if (state.toLowerCase() === 'exit') {
+            const stateString = data.State;
+            if (stateString.toLowerCase() === 'exit') {
 
                 const eventHandler = this.eventHandlers['exit'];
                 if (eventHandler) {
@@ -73,10 +73,19 @@ consoleLogDriver.prototype = {
                 throw new Error('Exiting without handler');
             }
 
+            const state = this.parseDAndBuildObject(stateString);
+
             callback(null, state);
 
             this.loopForStateChange();
         }.bind(this));
+    },
+
+    parseDAndBuildObject: function (data) {
+        // to turn 'D2:1' to object {D2:1}
+        const parts = data.split(':');
+        const json = '{"' + parts[0] + '":' + parts[1] + '}';
+        return JSON.parse(json);
     }
 };
 
