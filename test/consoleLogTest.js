@@ -139,8 +139,10 @@ describe('consoleLog', function () {
             [
                 'D0:0',
                 'D0:1',
-                'D0:2',
                 'D1:0',
+                'D2:1',
+                'D5:1',
+                'D7:1',
                 'exit'
             ].map(function (change) {
                 promptCallback(null, {State: change});

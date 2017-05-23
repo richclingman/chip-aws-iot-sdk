@@ -73,19 +73,26 @@ consoleLogDriver.prototype = {
                 throw new Error('Exiting without handler');
             }
 
-            const state = this.parseDAndBuildObject(stateString);
+            const commandLetter = stateString.substr(0, 1);
+            let parser = this.parsers[commandLetter];
+            if (!parser) {
+                callback('Undefined command letter: "' + commandLetter + '"');
+            }
 
+            const state = parser(stateString);
             callback(null, state);
 
             this.loopForStateChange();
         }.bind(this));
     },
 
-    parseDAndBuildObject: function (data) {
+    parsers: {
+        'D': function (data) {
         // to turn 'D2:1' to object {D2:1}
         const parts = data.split(':');
         const json = '{"' + parts[0] + '":' + parts[1] + '}';
         return JSON.parse(json);
+    }
     }
 };
 
