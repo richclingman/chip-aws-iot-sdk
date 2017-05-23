@@ -24,7 +24,7 @@ consoleLogDriver.prototype = {
         this.value = {};
         this.writeOutput('init() called');
     },
-    on: function(event, handler) {
+    on: function (event, handler) {
         this.eventHandlers[event] = handler;
     },
     updateState: function (message) {
@@ -49,13 +49,13 @@ consoleLogDriver.prototype = {
             throw new Error('Must set a "change" callback.');
         }
 
-        let pattern = /^(D[0-7]:[01])|(exit)$/;
+        const pattern = /^(D[0-7]:[01])|(P[01]:[0-9][0-9])|(exit)$/;
         prompt.get([{
             name: 'State',
             required: true,
             pattern: pattern,
             message: 'Ex: D3:1 (pattern: ' + pattern + ').'
-        }], function(err, data) {
+        }], function (err, data) {
             if (err) {
                 callback(err);
                 return;
@@ -74,25 +74,41 @@ consoleLogDriver.prototype = {
             }
 
             const commandLetter = stateString.substr(0, 1);
-            let parser = this.parsers[commandLetter];
+            const parser = this.parsers[commandLetter];
+
             if (!parser) {
                 callback('Undefined command letter: "' + commandLetter + '"');
+            } else {
+                const state = parser(stateString);
+                callback(null, state);
             }
-
-            const state = parser(stateString);
-            callback(null, state);
 
             this.loopForStateChange();
         }.bind(this));
     },
 
     parsers: {
-        'D': function (data) {
-        // to turn 'D2:1' to object {D2:1}
-        const parts = data.split(':');
-        const json = '{"' + parts[0] + '":' + parts[1] + '}';
-        return JSON.parse(json);
-    }
+        'D': function (stateString) {
+            // to turn 'D2:1' to object {D2:1}
+            const parts = stateString.split(':');
+            const json = '{"' + parts[0] + '":' + parts[1] + '}';
+            return JSON.parse(json);
+        },
+        'P': function (stateString) {
+            // duty_cycle centers around 1us which is center for servo, "50" on input
+            // each "1" is 10ns so "100" is 1,000ns + 500ns (1,500ns); "0" = 1,000ns - 500ns (500ns)
+
+            const parts = stateString.split(':');
+
+            const value = parseInt(parts[1]);
+            const offset = value * 10 - 500;
+            const dutyCycle = 1000 + offset;
+
+            const json = '{"' + parts[0] + '":' + dutyCycle + '}';
+            return JSON.parse(json);
+
+
+        }
     }
 };
 
