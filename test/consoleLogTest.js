@@ -166,5 +166,38 @@ describe('consoleLog', function () {
 
     });
 
+    describe('inputRegex', function () {
+        it('should filter input strings', function () {
+            let result = [];
+            [
+                'D1:0',
+                'D0:1',
+                'D7:1',
 
+                'P1:20',
+                'P0:80',
+                'P1:0',
+                'P0:100',
+
+                'exit',
+
+                'a',
+                'b',
+
+                'D7:3',
+                'D8:1',
+
+                'P3:0',
+                'P1:101',
+            ].map(function (input) {
+                result.push({
+                    input: input,
+                    accepted: input.match(consoleLogDriver.inputRegex) !== null
+                })
+            });
+
+
+            this.verifyAsJSON(result);
+        });
+    });
 });

@@ -40,6 +40,7 @@ consoleLogDriver.prototype = {
     writeOutput: function (arg) {
         console.log('\nDRIVER OUT: ', arg);
     },
+    inputRegex: /(^D[0-7]:[01]$)|(^P[01]:((\d{1,2})|100)$)|(^exit$)/,
     loopForStateChange() {
         prompt.start();
         prompt.message = 'New State or "exit"';
@@ -49,12 +50,11 @@ consoleLogDriver.prototype = {
             throw new Error('Must set a "change" callback.');
         }
 
-        const pattern = /^(D[0-7]:[01])|(P[01]:[0-9][0-9])|(exit)$/;
         prompt.get([{
             name: 'State',
             required: true,
-            pattern: pattern,
-            message: 'Ex: D3:1 (pattern: ' + pattern + ').'
+            pattern: this.inputRegex,
+            message: 'Ex: D3:1 (pattern: ' + this.inputRegex + ').'
         }], function (err, data) {
             if (err) {
                 callback(err);
@@ -106,8 +106,6 @@ consoleLogDriver.prototype = {
 
             const json = '{"' + parts[0] + '":' + dutyCycle + '}';
             return JSON.parse(json);
-
-
         }
     }
 };

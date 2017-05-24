@@ -1,0 +1,58 @@
+[
+  {
+    "input": "D1:0",
+    "accepted": true
+  },
+  {
+    "input": "D0:1",
+    "accepted": true
+  },
+  {
+    "input": "D7:1",
+    "accepted": true
+  },
+  {
+    "input": "P1:20",
+    "accepted": true
+  },
+  {
+    "input": "P0:80",
+    "accepted": true
+  },
+  {
+    "input": "P1:0",
+    "accepted": true
+  },
+  {
+    "input": "P0:100",
+    "accepted": true
+  },
+  {
+    "input": "exit",
+    "accepted": true
+  },
+  {
+    "input": "a",
+    "accepted": false
+  },
+  {
+    "input": "b",
+    "accepted": false
+  },
+  {
+    "input": "D7:3",
+    "accepted": false
+  },
+  {
+    "input": "D8:1",
+    "accepted": false
+  },
+  {
+    "input": "P3:0",
+    "accepted": false
+  },
+  {
+    "input": "P1:101",
+    "accepted": false
+  }
+]
