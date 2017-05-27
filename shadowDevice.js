@@ -127,7 +127,7 @@ shadowDevice.prototype = {
 
         this.thingShadow.on('close', function () {
             console.log('close');
-            this.thingShadow.unregister(thingName);
+            this.thingShadow.unregister(this.args.thingName);
         }.bind(this));
 
         this.thingShadow.on('reconnect', function () {
@@ -145,9 +145,9 @@ shadowDevice.prototype = {
             //
             // If any operation is currently underway, cancel it.
             //
-            while (stack.length) {
-                stack.pop();
-            }
+            // while (stack.length) {
+            //     stack.pop();
+            // }
             console.log('offline');
         }.bind(this));
 
