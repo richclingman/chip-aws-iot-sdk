@@ -133,12 +133,12 @@ ChipPinDev.prototype = {
             this.setValue(pin, 0);
         }.bind(this));
 
-        this.pwmList.map(function(pwm) {
+        this.pwmList.map(function (pwm) {
             this.initPwmForServo(pwm);
         }.bind(this));
     },
 
-    initPwmForServo: function(pwm) {
+    initPwmForServo: function (pwm) {
         this.exportPwm(pwm);
         this.setPwmEnable(pwm, 0);
         this.setPwmPolarity(pwm, 'normal');
@@ -195,9 +195,25 @@ ChipPinDev.prototype = {
         console.log('UPDATE: ', json);
 
         Object.keys(state).map(function (pinName) {
-            const pinObj = this.getPinObj(pinName);
+
+            const commandLetter = pinName.substr(0, 1);
+            const handler = this.stateHandlers[commandLetter].bind(this);
             const value = state[pinName];
-            console.log('po', pinObj, value);
+            handler(pinName, value);
+
+        }.bind(this));
+
+    },
+
+    stateHandlers: {
+        'D': function (pinName, value) {
+
+            if (value === null) {
+                value = 0;
+            }
+
+            const pinObj = this.getPinObj(pinName);
+            console.log('po', pinObj, pinName);
 
             if (pinObj && this.isValidOutput(pinObj.type, value)) {
                 console.log('good po');
@@ -208,9 +224,15 @@ ChipPinDev.prototype = {
                 this.writeOutput('INVALID:', pinName);
             }
 
-
-        }.bind(this));
-
+        },
+        'P': function (pwm, value) {
+            if (!value) {
+                this.setPwmEnable(pwm, 0);
+            } else {
+                this.setPwmEnable(pwm, 1);
+                this.setPwmDutyCycle(pwm, value);
+            }
+        }
     },
 
     writeOutput: function (arg) {

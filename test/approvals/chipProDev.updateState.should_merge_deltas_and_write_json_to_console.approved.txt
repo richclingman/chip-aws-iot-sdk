@@ -9,6 +9,18 @@
     "1 > /sys/class/gpio/gpio135/value"
   ],
   [
+    "1 > /sys/class/pwm/pwmchip0/pwmPWM0/enable"
+  ],
+  [
+    "123 > /sys/class/pwm/pwmchip0/pwmPWM0/duty_cycle"
+  ],
+  [
+    "1 > /sys/class/pwm/pwmchip0/pwmPWM1/enable"
+  ],
+  [
+    "456 > /sys/class/pwm/pwmchip0/pwmPWM1/duty_cycle"
+  ],
+  [
     "0 > /sys/class/gpio/gpio132/value"
   ],
   [
@@ -16,5 +28,11 @@
   ],
   [
     "0 > /sys/class/gpio/gpio135/value"
+  ],
+  [
+    "0 > /sys/class/gpio/gpio136/value"
+  ],
+  [
+    "0 > /sys/class/pwm/pwmchip0/pwmPWM0/enable"
   ]
 ]
