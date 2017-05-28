@@ -34,10 +34,10 @@ ChipPinDev.prototype = {
         'D6': {type: 'IO', pin: 138},
         'D7': {type: 'IO', pin: 139}
     },
-    pwmList: [
-        0,
-        1
-    ],
+    pwmList: {
+        'P0': {type: 'PWM', pin: 0},
+        'P1': {type: 'PWM', pin: 1}
+    },
 
     validators: {
         /**
@@ -133,8 +133,9 @@ ChipPinDev.prototype = {
             this.setValue(pin, 0);
         }.bind(this));
 
-        this.pwmList.map(function (pwm) {
-            this.initPwmForServo(pwm);
+        Object.keys(this.pwmList).map(function (pwmName) {
+            const pin = this.pwmList[pwmName].pin;
+            this.initPwmForServo(pin);
         }.bind(this));
     },
 
@@ -228,10 +229,11 @@ ChipPinDev.prototype = {
 
         },
         'P': function (pwm, value) {
+            const pwmPin = this.pwmList[pwm].pin;
             if (!value) {
-                this.setPwmEnable(pwm, 0);
+                this.setPwmEnable(pwmPin, 0);
             } else {
-                this.setPwmDutyCycle(pwm, value);
+                this.setPwmDutyCycle(pwmPin, value);
             }
         }
     },

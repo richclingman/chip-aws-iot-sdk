@@ -98,8 +98,8 @@ describe('chipProDev', function () {
                     state: {
                         D3: 1,
                         D4: 'invalid',
-                        PWM0: 123,
-                        PWM1: 456
+                        P0: 123,
+                        P1: 456
                     }
                 },
                 {
@@ -108,7 +108,7 @@ describe('chipProDev', function () {
                         D2: 0,
                         D3: 0,
                         D4: null,
-                        PWM0: null,
+                        P0: null,
                     }
                 },
             ];
