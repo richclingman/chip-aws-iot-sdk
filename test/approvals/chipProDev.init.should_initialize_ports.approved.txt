@@ -84,9 +84,6 @@
     "20000000 > /sys/class/pwm/pwmchip0/pwm0/period"
   ],
   [
-    "1000 > /sys/class/pwm/pwmchip0/pwm0/duty_cycle"
-  ],
-  [
     "test ! -e /sys/class/pwm/pwmchip0/pwm1 && echo 1 > /sys/class/pwm/pwmchip0/export || echo \"already exported\""
   ],
   [
@@ -97,8 +94,5 @@
   ],
   [
     "20000000 > /sys/class/pwm/pwmchip0/pwm1/period"
-  ],
-  [
-    "1000 > /sys/class/pwm/pwmchip0/pwm1/duty_cycle"
   ]
 ]
