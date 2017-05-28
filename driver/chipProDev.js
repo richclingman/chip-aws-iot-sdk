@@ -34,6 +34,10 @@ ChipPinDev.prototype = {
         'D6': {type: 'IO', pin: 138},
         'D7': {type: 'IO', pin: 139}
     },
+    pwmList: [
+        0,
+        1
+    ],
 
     validators: {
         /**
@@ -129,17 +133,17 @@ ChipPinDev.prototype = {
             this.setValue(pin, 0);
         }.bind(this));
 
+        this.pwmList.map(function(pwm) {
+            this.initPwmForServo(pwm);
+        }.bind(this));
+    },
 
-        // testing - init pwm to 50% alternating
-
-        // [0, 1].map(function(pwm) {
-        //     this.exportPwm(pwm);
-        //     this.setPwmEnable(pwm, 0);
-        //     this.setPwmPolarity(pwm, pwm ? 'normal' : 'inversed');
-        //     this.setPwmEnable(pwm, 1);
-        //     this.setPwmPeriod(pwm, 1000000000);
-        //     this.setPwmDutyCycle(pwm, 500000000);
-        // }.bind(this));
+    initPwmForServo: function(pwm) {
+        this.exportPwm(pwm);
+        this.setPwmEnable(pwm, 0);
+        this.setPwmPolarity(pwm, 'normal');
+        this.setPwmPeriod(pwm, 20000000); // 50hz
+        this.setPwmDutyCycle(pwm, 1000); // 1us
     },
 
     teardown: function () {

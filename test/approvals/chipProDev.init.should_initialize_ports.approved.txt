@@ -70,5 +70,35 @@
   ],
   [
     "0 > /sys/class/gpio/gpio139/value"
+  ],
+  [
+    "test ! -e /sys/class/pwm/pwmchip0/pwm0 && echo 0 > /sys/class/pwm/pwmchip0/export || echo \"already exported\""
+  ],
+  [
+    "0 > /sys/class/pwm/pwmchip0/pwm0/enable"
+  ],
+  [
+    "normal > /sys/class/pwm/pwmchip0/pwm0/polarity"
+  ],
+  [
+    "20000000 > /sys/class/pwm/pwmchip0/pwm0/period"
+  ],
+  [
+    "1000 > /sys/class/pwm/pwmchip0/pwm0/duty_cycle"
+  ],
+  [
+    "test ! -e /sys/class/pwm/pwmchip0/pwm1 && echo 1 > /sys/class/pwm/pwmchip0/export || echo \"already exported\""
+  ],
+  [
+    "0 > /sys/class/pwm/pwmchip0/pwm1/enable"
+  ],
+  [
+    "normal > /sys/class/pwm/pwmchip0/pwm1/polarity"
+  ],
+  [
+    "20000000 > /sys/class/pwm/pwmchip0/pwm1/period"
+  ],
+  [
+    "1000 > /sys/class/pwm/pwmchip0/pwm1/duty_cycle"
   ]
 ]
