@@ -122,13 +122,11 @@ ChipPinDev.prototype = {
 
     init: function () {
 
-        // @todo - use pinList
-
-        const leds = [132, 133, 134, 135, 136, 137, 138, 139];
-        leds.map(function (led) {
-            this.exportPin(led);
-            this.setDirection(led, 'out');
-            this.setValue(led, 0);
+        Object.keys(this.pinList).map(function (pinName) {
+            const pin = this.pinList[pinName].pin;
+            this.exportPin(pin);
+            this.setDirection(pin, 'out');
+            this.setValue(pin, 0);
         }.bind(this));
 
 
