@@ -190,7 +190,6 @@ ChipPinDev.prototype = {
 
         console.log('VAL', this.value);
 
-
         const json = JSON.stringify(message, null, 4);
         console.log('UPDATE: ', json);
 

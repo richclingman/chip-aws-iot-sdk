@@ -30,10 +30,28 @@ http://flash.getchip.com/
 
 ## Install OS Requirements
 
+* sudo apt-get update
+* sudo apt-get install nano
+* sudo apt-get install dig
+* sudo apt-get install dnsutils
+* sudo apt-get install openssh-server
+* sudo apt-get install net-tools
+* sudo apt-get install iptables
+* sudo apt-get install dos2unix
+* sudo apt-get install man
+* sudo apt-get install nodejs
+* sudo apt-get install nvm
+
+* In browser, get 
+https://raw.githubusercontent.com/NextThingCo/CHIP-buildroot/34a8cfdab2bbecd6741c435d6c400e46848436f1/package/rtl8723ds_mp_driver/set_antenna
 
 ## Install Package Requirements
 
     npm install
+    
+## Verify Installed Okay
+
+    npm test
     
 ## Run Device Example
 

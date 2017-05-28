@@ -14,6 +14,8 @@ let shadowDevice = function (args, driver) {
     this.args = args;
     this.driver = driver;
 
+    console.log('thing name:', this.args.thingName);
+
     driver.on('exit', function() {
         console.log('exiting');
 
@@ -116,22 +118,22 @@ shadowDevice.prototype = {
     },
 
     publishUpdate(message) {
-        console.log('publish', message);
+        console.log('send publish', message);
         return this.thingShadow.update(this.args.thingName, message);
     },
 
     registerEventHandlers: function () {
         this.thingShadow.on('connect', function () {
-            console.log('connected to AWS IoT');
+            console.log('rcvd connected to AWS IoT');
         });
 
         this.thingShadow.on('close', function () {
-            console.log('close');
+            console.log('rcvd close');
             this.thingShadow.unregister(this.args.thingName);
         }.bind(this));
 
         this.thingShadow.on('reconnect', function () {
-            console.log('reconnect');
+            console.log('rcvd reconnect');
         });
 
         this.thingShadow.on('offline', function () {
@@ -148,29 +150,29 @@ shadowDevice.prototype = {
             // while (stack.length) {
             //     stack.pop();
             // }
-            console.log('offline');
+            console.log('rcvd offline');
         }.bind(this));
 
         this.thingShadow.on('error', function (error) {
-            console.log('error', error);
+            console.log('rcvd error', error);
         });
 
         this.thingShadow.on('message', function (topic, payload) {
-            console.log('message', topic, payload.toString());
+            console.log('rcvd message', topic, payload.toString());
         });
 
         this.thingShadow.on('status', function (thingName, stat, stateObject) {
-            console.log('status', stat, stateObject);
+            console.log('rcvd status', stat, stateObject);
             // handleStatus(thingName, stat, clientToken, stateObject);
         });
 
         this.thingShadow.on('delta', function (thingName, stateObject) {
-            console.log('delta', JSON.stringify(stateObject));
+            console.log('rcvd delta', JSON.stringify(stateObject));
             this.driver.updateState(stateObject);
         }.bind(this));
 
         this.thingShadow.on('timeout', function (thingName, clientToken) {
-            console.log('timeout', clientToken);
+            console.log('rcvd timeout', clientToken);
             // handleTimeout(thingName, clientToken);
         });
     }
