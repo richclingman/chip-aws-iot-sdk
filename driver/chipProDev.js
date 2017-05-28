@@ -142,7 +142,9 @@ ChipPinDev.prototype = {
         this.exportPwm(pwm);
         this.setPwmEnable(pwm, 0);
         this.setPwmPolarity(pwm, 'normal');
+        this.setPwmEnable(pwm, 1);
         this.setPwmPeriod(pwm, 20000000); // 50hz
+        this.setPwmDutyCycle(pwm, 1000);  // 1us
     },
 
     teardown: function () {
@@ -229,7 +231,6 @@ ChipPinDev.prototype = {
             if (!value) {
                 this.setPwmEnable(pwm, 0);
             } else {
-                this.setPwmEnable(pwm, 1);
                 this.setPwmDutyCycle(pwm, value);
             }
         }
