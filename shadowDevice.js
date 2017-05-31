@@ -16,11 +16,16 @@ let shadowDevice = function (args, driver) {
 
     console.log('thing name:', this.args.thingName);
 
-    driver.on('exit', function() {
+    function exit() {
         console.log('exiting');
 
-        throw new Error('Exiting');
-    });
+        process.exit();
+    }
+
+    driver.on('exit', exit);
+
+    process.on('SIGINT', exit);
+
     driver.on('change', function (err, state) {
         console.log('change', err, state);
 
