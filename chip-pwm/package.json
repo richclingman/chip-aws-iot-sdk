@@ -1,0 +1,21 @@
+{
+  "name": "chip-pwm",
+  "version": "0.1.0",
+  "description": "PWM pin management for C.H.I.P. and compatible devices.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "chip",
+    "pwm",
+    "gpio"
+  ],
+  "author": "Rich Clingman, Sr",
+  "license": "MIT",
+  "dependencies": {
+    "epoll": "^0.1.21",
+    "fs": "0.0.1-security",
+    "os": "^0.1.1"
+  }
+}
