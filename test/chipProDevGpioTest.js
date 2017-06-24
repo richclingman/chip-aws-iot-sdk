@@ -14,7 +14,7 @@ const approvalsConfig = {
 };
 approvals.configure(approvalsConfig);
 
-describe.only('chipProDevGpio', function () {
+describe('chipProDevGpio', function () {
     let chipProDevGpio;
     let gpioMock;
     let promptCallback;
