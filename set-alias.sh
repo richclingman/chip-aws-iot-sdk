@@ -1,5 +1,5 @@
-alias ll="ls -l --color=auto"
-alias l.="ls -la --color=auto"
+alias ll="ls -lh --color=auto"
+alias l.="ls -lah --color=auto"
 
 alias lsgpio="ls -l --color=auto /sys/class/gpio/"
 alias lspwm="ls -l --color=auto /sys/class/pwm/"
